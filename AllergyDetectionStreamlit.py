@@ -323,7 +323,7 @@ def allergy(allergy, text):
 
 st.write("""
 # Welcome to Plate Guardian!
-Our handy application helps you feel safe and secure in your food choices. Simply upload an image of a food's ingredient list, and our application will scan the list for allergens, dietary restriced ingredients, or desired macronutrients.
+Plate Guardian is a handy application that helps meet your dietary goals and needs. Our application provides personalized recommendations including a meal prep plan to hit your desired weight goal, and delicious recipes that won't leave you starving for your target macronutrients. Plate Guardian can also scan any food ingredient list for allergens to make you secure in your food choices.
 """)
 st.subheader("Dietary focus")
 selected_tab = st.selectbox("Enter your dietary focus:", ["Allergens", "Meal Planner", "Macronutrients"])
@@ -342,15 +342,15 @@ def render_page(tab_name):
         st.subheader("Meal Planner")
         start = st.text_input("Enter your start weight:")    
         goal =  st.text_input("Enter your end weight:")   
-        time =  st.text_input("Enter your Time Goal (In months):")                
-        if st.button('Find Meal Plan'):
-            st.write('Your Meal Plan report is generating...')
+        time =  st.text_input("Enter your time goal (in months):")                
+        if st.button('Create meal plan'):
+            st.write('Creating your meal plan...')
             st.title(plan(start, goal, time))
     elif tab_name == "Macronutrients":
         st.subheader("Macronutrients")
         c = st.selectbox("Select Macronutrient", ["Carbohydrates", "Fats", "Proteins"])           
-        if st.button('Find Target Macronutrient'):
-            st.write('Macronutrient Report Generated')
+        if st.button('Create recipe'):
+            st.write('Creating a recipe targeting', c, "...")
             st.title(macro(c))
 render_page(selected_tab)
-##uploaded_file = st.file_uploader("Upload food label", type=["jpg", "jpeg", "png"])
+
