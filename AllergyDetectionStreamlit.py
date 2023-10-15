@@ -12,7 +12,6 @@ import easyocr
 import cv2
 from streamlit_option_menu import option_menu
 
-
 load_dotenv()
 llm = OpenAI(openai_api_key=os.environ["KEY"])
 
@@ -24,6 +23,93 @@ def read_img(img):
         return(str(text))
     except Exception as e:
         return "An error has occurred."
+    
+def plan(s, g, t):
+    temp = """Given a start weight, goal weight, and time span in months, create a meal plan that will help the user reach their goal weight in the given time span. If the time span is too short or the weight difference is too drastic, say "These parameters are not possible."
+
+    start: 200
+    goal: 160
+    time: 6
+    Answer: Start weight: 200 lbs
+    End weight: 160 lbs
+    Timeframe: 6 months
+    Calories: 1500-1600 calories per day
+    Macronutrients: 40% protein, 30% carbohydrates, 30% fat
+
+    Breakfast
+
+    Oatmeal with berries and nuts (300 calories)
+    Greek yogurt with fruit and granola (300 calories)
+    Eggs with whole-wheat toast and avocado (300 calories)
+    Lunch
+
+    Salad with grilled chicken or fish (400 calories)
+    Soup and sandwich on whole-wheat bread (400 calories)
+    Leftovers from dinner (400 calories)
+    Dinner
+
+    Grilled salmon with roasted vegetables (400 calories)
+    Chicken stir-fry with brown rice (400 calories)
+    Lentil soup with whole-wheat bread (400 calories)
+    Snacks
+
+    Fruits and vegetables
+    Nuts and seeds
+    Hard-boiled eggs
+    Greek yogurt
+    Total calories: 1500-1600 calories
+    Total protein: 120-128 grams
+    Total carbohydrates: 135-144 grams
+    Total fat: 50-56 grams
+    
+    
+    start: 180
+    goal: 170
+    time: 9
+    Answer: Start weight: 180 lbs
+    End weight: 170 lbs
+    Timeframe: 9 months
+    Calories: 1700-1800 calories per day
+    Macronutrients: 40% protein, 30% carbohydrates, 30% fat
+
+    Breakfast
+
+    Oatmeal with berries and nuts (350 calories)
+    Greek yogurt with fruit and granola (350 calories)
+    Eggs with whole-wheat toast and avocado (350 calories)
+    Lunch
+
+    Salad with grilled chicken or fish (450 calories)
+    Soup and sandwich on whole-wheat bread (450 calories)
+    Leftovers from dinner (450 calories)
+    Dinner
+
+    Grilled salmon with roasted vegetables (450 calories)
+    Chicken stir-fry with brown rice (450 calories)
+    Lentil soup with whole-wheat bread (450 calories)
+    Snacks
+
+    Fruits and vegetables
+    Nuts and seeds
+    Hard-boiled eggs
+    Greek yogurt
+    Total calories: 1700-1800 calories
+    Total protein: 136-144 grams
+    Total carbohydrates: 152-160 grams
+    Total fat: 64-72 grams
+
+    This meal plan provides a variety of nutritious foods from all food groups. It also includes a good balance of protein, carbohydrates, and fat. If you find yourself feeling hungry between meals, feel free to add a healthy snack.
+    
+
+    start: {start}
+    goal: {goal}
+    time: {time}
+    Answer:"""
+    prompt_template = PromptTemplate(
+        input_variables=["start", "goal", "time"],
+        template= temp
+    )
+    return llm(prompt_template.format(start = s, goal = g, time=t))
     
 def macro(macronutrient):
     if macronutrient == "Fats":
@@ -199,7 +285,7 @@ st.write("""
 Our handy application helps you feel safe and secure in your food choices. Simply upload an image of a food's ingredient list, and our application will scan the list for allergens, dietary restriced ingredients, or desired macronutrients.
 """)
 st.subheader("Dietary focus")
-selected_tab = st.selectbox("Enter your dietary focus:", ["Allergens", "Dietary restrictions", "Macronutrients"])
+selected_tab = st.selectbox("Enter your dietary focus:", ["Allergens", "Meal Planner", "Macronutrients"])
 def render_page(tab_name):
     if tab_name == "Allergens":
         st.subheader("Allergens")
@@ -211,16 +297,14 @@ def render_page(tab_name):
             st.write("These ingredients were found:")
             st.write(text)
             st.title(allergy(a, text))
-    elif tab_name == "Dietary restrictions":
-        st.subheader("Dietary restrictions")
-        b = st.selectbox("Select dietary restriction", ["Kosher","Halal","Vegan", "Vegetarian"])    
-        uploaded_file = st.file_uploader("Upload food label", type=["jpg", "jpeg", "png"])            
-        if st.button('Find dietary restrictions'):
-            st.write('Your dietary restrictions report is generating...')
-            text = read_img(uploaded_file)
-            st.write("These ingredients were found:")
-            st.write(text)
-            st.title(allergy(b, text))
+    elif tab_name == "Meal Planner":
+        st.subheader("Meal Planner")
+        start = st.text_input("Enter your start weight:")    
+        goal =  st.text_input("Enter your end weight:")   
+        time =  st.text_input("Enter your Time Goal (In months):")                
+        if st.button('Find Meal Plan'):
+            st.write('Your Meal Plan report is generating...')
+            st.title(plan(start, goal, time))
     elif tab_name == "Macronutrients":
         st.subheader("Macronutrients")
         c = st.selectbox("Select Macronutrient", ["Carbohydrates", "Fats", "Proteins"])           
