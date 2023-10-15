@@ -25,7 +25,7 @@ def read_img(img):
         return "An error has occurred."
     
 def plan(s, g, t):
-    temp = """Given a start weight, goal weight, and time span in months, create a meal plan that will help the user reach their goal weight in the given time span. If the time span is too short or the weight difference is too drastic, say "These parameters are not possible."
+    temp = """Given a start weight, goal weight, and time span in months, create a meal plan that will help the user reach their goal weight in the given time span."
 
     start: 200
     goal: 160
@@ -97,6 +97,47 @@ def plan(s, g, t):
     Total protein: 136-144 grams
     Total carbohydrates: 152-160 grams
     Total fat: 64-72 grams
+
+    This meal plan provides a variety of nutritious foods from all food groups. It also includes a good balance of protein, carbohydrates, and fat. If you find yourself feeling hungry between meals, feel free to add a healthy snack.
+    
+
+    start: 180
+    goal: 190
+    time: 2
+    Answer: Sample Meal Plan for Weight Gain
+
+    Start weight: 180 lbs
+    End weight: 190 lbs
+    Timeframe: 2 months
+    Calories: 2500-2600 calories per day
+    Macronutrients: 40% protein, 30% carbohydrates, 30% fat
+
+    Breakfast
+
+    Oatmeal with berries, nuts, and nut butter (500 calories)
+    Greek yogurt with fruit, granola, and seeds (500 calories)
+    Eggs with whole-wheat toast, avocado, and cheese (500 calories)
+    Lunch
+
+    Salad with grilled chicken or fish, quinoa, and avocado (600 calories)
+    Sandwich on whole-wheat bread with lean protein, cheese, and vegetables (600 calories)
+    Leftovers from dinner (600 calories)
+    Dinner
+
+    Salmon with roasted vegetables and brown rice (600 calories)
+    Chicken stir-fry with brown rice and nuts (600 calories)
+    Lentil soup with whole-wheat bread and avocado (600 calories)
+    Snacks
+
+    Fruits and vegetables
+    Nuts and seeds
+    Hard-boiled eggs
+    Greek yogurt
+    Protein shakes
+    Total calories: 2500-2600 calories
+    Total protein: 200-208 grams
+    Total carbohydrates: 225-234 grams
+    Total fat: 83-87 grams
 
     This meal plan provides a variety of nutritious foods from all food groups. It also includes a good balance of protein, carbohydrates, and fat. If you find yourself feeling hungry between meals, feel free to add a healthy snack.
     
