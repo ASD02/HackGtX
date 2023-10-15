@@ -25,7 +25,7 @@ def read_img(img):
         return "An error has occurred."
     
 def plan(s, g, t):
-    temp = """Given a start weight, goal weight, and time span in months, create a meal plan that will help the user reach their goal weight in the given time span."
+    temp = """Limit your response to 100 words. Given a start weight, goal weight, and time span in months, create a meal plan that will help the user reach their goal weight in the given time span."
 
     start: 200
     goal: 160
@@ -98,7 +98,7 @@ def plan(s, g, t):
     Total carbohydrates: 152-160 grams
     Total fat: 64-72 grams
 
-    This meal plan provides a variety of nutritious foods from all food groups. It also includes a good balance of protein, carbohydrates, and fat. If you find yourself feeling hungry between meals, feel free to add a healthy snack.
+    This meal plan provides a variety of nutritious foods from all food groups.
     
 
     start: 180
@@ -139,7 +139,7 @@ def plan(s, g, t):
     Total carbohydrates: 225-234 grams
     Total fat: 83-87 grams
 
-    This meal plan provides a variety of nutritious foods from all food groups. It also includes a good balance of protein, carbohydrates, and fat. If you find yourself feeling hungry between meals, feel free to add a healthy snack.
+    This meal plan provides a variety of nutritious foods from all food groups.
     
 
     start: {start}
@@ -155,7 +155,7 @@ def plan(s, g, t):
 def macro(macronutrient):
     if macronutrient == "Fats":
         macronutrient = 'Lipid'
-    temp = """Answer the question based on the context below. You are a helpful health and cooking assistant. Based on the Macronutrient given, create a recipe centered around that macronutrient.
+    temp = """Limit your response to 100 words. Answer the question based on the context below. You are a helpful health and cooking assistant. Based on the Macronutrient given, create a recipe centered around that macronutrient.
     
     macronutrient: protein
 
